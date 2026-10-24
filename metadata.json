@@ -1,0 +1,6 @@
+{
+  "name": "Chuva de Palavras - Jogo de Digitação",
+  "description": "Jogo dinâmico de digitação em português com palavras cadentes, canhão de defesa, ordem de aparição e rodadas de bônus eletrizantes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,81 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with display name and unique username",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string", "minLength": 3, "maxLength": 20 },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "username"]
+    },
+    "UsernameClaim": {
+      "title": "UsernameClaim",
+      "description": "Unique username claim document to prevent duplicate usernames",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" }
+      },
+      "required": ["uid", "username"]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Score submission for global rankings separated by game mode and difficulty",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "score": { "type": "number" },
+        "gameMode": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "wordsTyped": { "type": "number" },
+        "maxCombo": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["uid", "username", "score", "gameMode", "difficulty"]
+    },
+    "DuelMatch": {
+      "title": "DuelMatch",
+      "description": "Online real-time duel match between two players with 6-digit code or room search",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "hostUid": { "type": "string" },
+        "hostName": { "type": "string" },
+        "guestUid": { "type": "string" },
+        "guestName": { "type": "string" },
+        "status": { "type": "string", "enum": ["WAITING", "PLAYING", "FINISHED"] },
+        "isPublic": { "type": "boolean" },
+        "winnerUid": { "type": "string" },
+        "winnerName": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "code", "hostName", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profile and account details"
+    },
+    "/usernames/{usernameLower}": {
+      "schema": "UsernameClaim",
+      "description": "Ensures unique username reservation"
+    },
+    "/rankings/{rankingId}": {
+      "schema": "LeaderboardEntry",
+      "description": "Global leaderboard scores separated by mode and difficulty"
+    },
+    "/duels/{duelId}": {
+      "schema": "DuelMatch",
+      "description": "Online duel matchmaking and games"
+    }
+  }
+}
